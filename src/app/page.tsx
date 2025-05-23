@@ -1,9 +1,14 @@
-'use client';
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/Button"
+import type { Metadata } from "next"
+import FeaturedEvents from "@/components/events/FeaturedEvents"
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
+export const metadata: Metadata = {
+  title: "TechEventos - Conectando Pessoas e Comunidades Tecnológicas",
+  description:
+    "Descubra, participe e organize eventos de tecnologia com a maior plataforma de comunidades tech do Brasil.",
+}
 
 export default function Home() {
   return (
@@ -24,18 +29,22 @@ export default function Home() {
                 Descubra, participe e organize eventos de tecnologia com a maior plataforma de comunidades tech do Brasil.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  className="px-8 py-3 text-lg bg-blue-600 hover:bg-blue-700"
-                  variant="primary"
-                >
-                  Explorar Eventos
-                </Button>
-                <Button 
-                  className="px-8 py-3 text-lg"
-                  variant="outline"
-                >
-                  Criar Evento
-                </Button>
+                <Link href="/events">
+                  <Button 
+                    className="px-8 py-3 text-lg bg-blue-600 hover:bg-blue-700"
+                    variant="primary"
+                  >
+                    Explorar Eventos
+                  </Button>
+                </Link>
+                <Link href="/events/create">
+                  <Button 
+                    className="px-8 py-3 text-lg"
+                    variant="outline"
+                  >
+                    Criar Evento
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="relative h-80 lg:h-96 hidden lg:block">
@@ -49,6 +58,7 @@ export default function Home() {
                     width={500}
                     height={400}
                     className="object-cover rounded-2xl w-[90%] h-[90%]"
+                    priority
                   />
                 </div>
               </div>
@@ -75,6 +85,18 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+      
+      {/* Featured Events Section */}
+      <section className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Eventos em Destaque</h2>
+          <p className="text-xl text-gray-600">
+            Confira os eventos mais populares da nossa plataforma
+          </p>
+        </div>
+        
+        <FeaturedEvents />
       </section>
       
       {/* Seção Sobre a Plataforma */}
@@ -322,7 +344,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-blue-100">
-                "Através da plataforma, consegui me conectar com outros desenvolvedores da minha cidade e até encontrei meu atual emprego durante um hackathon organizado aqui."
+                Através da plataforma, consegui me conectar com outros desenvolvedores da minha cidade e até encontrei meu atual emprego durante um hackathon organizado aqui.
               </p>
             </div>
             
@@ -337,7 +359,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-blue-100">
-                "Organizar eventos para nossa comunidade de Python nunca foi tão fácil. As ferramentas de gestão e comunicação facilitam todo o processo desde a divulgação até o feedback."
+                Organizar eventos para nossa comunidade de Python nunca foi tão fácil. As ferramentas de gestão e comunicação facilitam todo o processo desde a divulgação até o feedback.
               </p>
             </div>
             
@@ -352,7 +374,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-blue-100">
-                "Usamos a plataforma para organizar nossos meetups técnicos mensais. O sistema de registro e o chat integrado tornaram nossas discussões muito mais produtivas."
+                Usamos a plataforma para organizar nossos meetups técnicos mensais. O sistema de registro e o chat integrado tornaram nossas discussões muito mais produtivas.
               </p>
             </div>
           </div>
