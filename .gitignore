@@ -1,0 +1,4 @@
+# Ignore Node.js modules and build artifacts
+
+node_modules
+.next
