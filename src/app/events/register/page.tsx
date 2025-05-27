@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Event } from '@/lib/types';
 import { EventRegistrationFormData } from '@/lib/validation';
@@ -13,12 +13,17 @@ import { useUser } from '@/context/UserContext';
 const EVENT: Event = {
   id: '1',
   title: 'Web Development Conference 2025',
-  description: 'Join us for a full day of talks on the latest web development trends, tools, and techniques.',
+  description:
+ 'Join us for a full day of talks on the latest web development trends, tools, and techniques.',
   date: new Date('2025-06-15'),
   location: 'Tech Hub, San Francisco',
   capacity: 200,
   registeredAttendees: 142,
   image: '/images/events/web-dev-conf.jpg',
+  category: 'Web Development',
+  organizer: 'Tech Events Inc.',
+  isFeatured: false,
+  tags: ['web', 'development', 'conference', 'frontend', 'backend'],
 };
 
 // Loading fallback component
@@ -35,7 +40,6 @@ function EventRegisterLoading() {
 
 // Component that uses useSearchParams
 function EventRegisterContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const eventId = searchParams.get('id') || '1';
   const { user, isLoading, login } = useUser();
