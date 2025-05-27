@@ -13,8 +13,7 @@ import { useUser } from '@/context/UserContext';
 const EVENT: Event = {
   id: '1',
   title: 'Web Development Conference 2025',
-  description:
- 'Join us for a full day of talks on the latest web development trends, tools, and techniques.',
+  description: 'Join us for a full day of talks on the latest web development trends, tools, and techniques.',
   date: new Date('2025-06-15'),
   location: 'Tech Hub, San Francisco',
   capacity: 200,
@@ -81,6 +80,21 @@ function EventRegisterContent() {
       </div>
     );
   }
+
+  // Format date safely
+  const formatDate = (date: Date): string => {
+    try {
+      return date.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'Invalid Date';
+    }
+  };
   
   return (
     <div className="container mx-auto px-4 py-8">
@@ -106,7 +120,7 @@ function EventRegisterContent() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>Date: {EVENT.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <span>Date: {formatDate(EVENT.date)}</span>
                 </div>
                 <div className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
