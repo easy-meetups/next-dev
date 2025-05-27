@@ -2,7 +2,7 @@ export interface Event {
   id: string
   title: string
   description: string
-  date: string // ISO string format
+  date: Date
   location: string
   category: string
   organizer: string
