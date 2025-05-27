@@ -3,7 +3,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['ui-avatars.com'],
+    domains: ['ui-avatars.com','oclb.com.br'],
   },
 }
 

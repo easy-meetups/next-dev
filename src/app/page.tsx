@@ -39,11 +39,11 @@ export default function Home() {
                 <div className="h-full w-full opacity-20 bg-[url('/tech-pattern.svg')]"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Image
-                    src="/images/events/tech-event-hero.jpg"
+                    src="https://oclb.com.br/wp-content/uploads/2025/01/53661189233_750eb1819a_k.jpg"
                     alt="Evento de tecnologia"
                     width={500}
                     height={400}
-                    className="object-cover rounded-2xl w-[90%] h-[90%]"
+                    className="object-cover rounded-2xl w-[100%] h-[100%]"
                     priority
                   />
                 </div>
