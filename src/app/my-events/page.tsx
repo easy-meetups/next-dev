@@ -33,9 +33,15 @@ const ConfirmationModal: React.FC<{
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 transition-opacity" onClick={onClose}>
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
+        <button
+          type="button"
+          className="fixed inset-0 transition-opacity"
+          onClick={onClose}
+          aria-label="Fechar modal"
+          style={{ outline: 'none', border: 'none', background: 'transparent', padding: 0, margin: 0 }}
+        >
+          <span className="absolute inset-0 bg-gray-500 opacity-75"></span>
+        </button>
         
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
         
@@ -103,9 +109,22 @@ const EventDetailsModal: React.FC<{
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 transition-opacity" onClick={onClose}>
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
+        <button
+          type="button"
+          className="fixed inset-0 transition-opacity"
+          style={{ background: 'transparent', border: 'solid', padding: 0, margin: 0 }}
+          aria-label="Fechar modal"
+          tabIndex={0}
+          onClick={onClose}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onClose();
+            }
+          }}
+        >
+          <span className="absolute inset-0 bg-gray-500 opacity-75"></span>
+        </button>
         
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
         
@@ -205,10 +224,13 @@ const EventDetailsModal: React.FC<{
                     <div>
                       <span className="block font-medium text-gray-900">Status</span>
                       <span className="block text-gray-600">
-                        {eventPassed 
-                          ? 'Este evento já aconteceu' 
-                          : `Faltam ${daysUntilEvent} ${daysUntilEvent === 1 ? 'dia' : 'dias'}`
-                        }
+                        {(() => {
+                          if (eventPassed) {
+                            return 'Este evento já aconteceu';
+                          }
+                          const dayLabel = daysUntilEvent === 1 ? 'dia' : 'dias';
+                          return `Faltam ${daysUntilEvent} ${dayLabel}`;
+                        })()}
                       </span>
                     </div>
                   </li>
@@ -261,6 +283,14 @@ const EventCard: React.FC<{
     locale: ptBR,
   });
   
+  // Extract background color for days remaining
+  let daysBgColor = 'bg-green-600';
+  if (daysUntilEvent <= 3) {
+    daysBgColor = 'bg-red-600';
+  } else if (daysUntilEvent <= 7) {
+    daysBgColor = 'bg-orange-500';
+  }
+
   return (
     <div className={`bg-white rounded-lg shadow-md overflow-hidden transition-all ${isPastEvent ? 'opacity-70' : 'hover:shadow-lg'}`}>
       <div className="relative">
@@ -279,13 +309,12 @@ const EventCard: React.FC<{
               FINALIZADO
             </span>
           ) : (
-            <span className={`text-white text-xs font-bold px-2 py-1 rounded-md ${
-              daysUntilEvent <= 3 ? 'bg-red-600' : 
-              daysUntilEvent <= 7 ? 'bg-orange-500' : 'bg-green-600'
-            }`}>
-              {daysUntilEvent === 0 ? 'HOJE' : 
-               daysUntilEvent === 1 ? 'AMANHÃ' : 
-               `FALTAM ${daysUntilEvent} DIAS`}
+            <span className={`text-white text-xs font-bold px-2 py-1 rounded-md ${daysBgColor}`}>
+              {(() => {
+                if (daysUntilEvent === 0) return 'HOJE';
+                if (daysUntilEvent === 1) return 'AMANHÃ';
+                return `FALTAM ${daysUntilEvent} DIAS`;
+              })()}
             </span>
           )}
         </div>
@@ -396,7 +425,7 @@ export default function MyEventsPage() {
       location: 'São Paulo, SP - Centro de Convenções',
       category: 'Frontend',
       organizer: 'TechConf Brasil',
-      image: '/images/events/react-summit.jpg',
+      image: '/images/events/react-summit.png',
       registrationDate: new Date('2024-12-10'),
       attendees: 478
     },
@@ -444,7 +473,7 @@ export default function MyEventsPage() {
       eventId: '17',
       title: 'AI in Healthcare Symposium',
       description: 'Simpósio sobre aplicações de inteligência artificial na saúde, reunindo profissionais de tecnologia e medicina.',
-      date: new Date('2024-12-08T10:00:00'), // Evento no passado para demonstração
+      date: new Date('2025-12-08T10:00:00'), // Evento no passado para demonstração
       location: 'São Paulo, SP - Hospital Sírio-Libanês',
       category: 'HealthTech',
       organizer: 'Health Innovation Hub',
@@ -524,20 +553,30 @@ export default function MyEventsPage() {
         
         {/* Lista de eventos */}
         {filteredEvents.length === 0 ? (
-          <div className="bg-blue-50 text-blue-800 p-8 rounded-lg text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-            </svg>
-            <h3 className="text-xl font-semibold mb-2">Nenhum evento encontrado</h3>
-            <p className="mb-6">Você ainda não se inscreveu em nenhum evento {activeFilter === 'upcoming' ? 'futuro' : activeFilter === 'past' ? 'passado' : ''}.</p>
-            
-            <Link 
-              href="/events" 
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
-            >
-              Explorar eventos disponíveis
-            </Link>
-          </div>
+          (() => {
+            let filterLabel = '';
+            if (activeFilter === 'upcoming') {
+              filterLabel = 'futuro';
+            } else if (activeFilter === 'past') {
+              filterLabel = 'passado';
+            }
+            return (
+              <div className="bg-blue-50 text-blue-800 p-8 rounded-lg text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                </svg>
+                <h3 className="text-xl font-semibold mb-2">Nenhum evento encontrado</h3>
+                <p className="mb-6">Você ainda não se inscreveu em nenhum evento {filterLabel}.</p>
+                
+                <Link 
+                  href="/events" 
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                >
+                  Explorar eventos disponíveis
+                </Link>
+              </div>
+            );
+          })()
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredEvents.map(event => (

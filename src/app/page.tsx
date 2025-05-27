@@ -218,7 +218,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">Desenvolvedores</h3>
+              <h3 className="text-xl font-bold  text-black mb-3">Desenvolvedores</h3>
               <p className="text-gray-600 max-w-xs mx-auto">
                 Encontre eventos de programação, workshops de código e
                 hackathons para aprimorar suas habilidades.
@@ -242,7 +242,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">Estudantes</h3>
+              <h3 className="text-xl font-bold text-black mb-3">Estudantes</h3>
               <p className="text-gray-600 max-w-xs mx-auto">
                 Inicie sua jornada na tecnologia com eventos educacionais e
                 oportunidades de mentoria.
@@ -266,7 +266,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">Profissionais</h3>
+              <h3 className="text-xl font-bold text-black mb-3">Profissionais</h3>
               <p className="text-gray-600 max-w-xs mx-auto">
                 Expanda sua rede de contatos e mantenha-se atualizado com as
                 últimas tendências do mercado.
@@ -290,7 +290,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">Empresas</h3>
+              <h3 className="text-xl font-bold text-black mb-3">Empresas</h3>
               <p className="text-gray-600 max-w-xs mx-auto">
                 Promova sua marca, recrute talentos e organize eventos
                 corporativos para a comunidade tech.
