@@ -1,20 +1,36 @@
+// SOLUÇÃO DE EMERGÊNCIA: Force o tipo correto
 'use client';
 
 import React, { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Event } from '@/lib/types';
 import { EventRegistrationFormData } from '@/lib/validation';
 import { RegistrationForm } from '@/components/events/RegistrationForm';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { useUser } from '@/context/UserContext';
 
-// Mock data - in a real app, you'd fetch this from an API based on the ID
-const EVENT: Event = {
+// Definir tipos localmente para evitar conflitos
+interface LocalEvent {
+  id: string;
+  title: string;
+  description: string;
+  date: Date;
+  location: string;
+  category: string;
+  organizer: string;
+  image: string;
+  capacity: number;
+  registeredAttendees: number;
+  isFeatured: boolean;
+  tags: string[];
+}
+
+// Mock data com cast explícito
+const EVENT: LocalEvent = {
   id: '1',
   title: 'Web Development Conference 2025',
   description: 'Join us for a full day of talks on the latest web development trends, tools, and techniques.',
-  date: new Date('2025-06-15'),
+  date: new Date('2025-06-15') as Date, // Cast explícito
   location: 'Tech Hub, San Francisco',
   capacity: 200,
   registeredAttendees: 142,
@@ -23,9 +39,26 @@ const EVENT: Event = {
   organizer: 'Tech Events Inc.',
   isFeatured: false,
   tags: ['web', 'development', 'conference', 'frontend', 'backend'],
+} as const; // Torna o objeto readonly
+
+// Função helper para formatação segura
+const safeFormatDate = (date: Date): string => {
+  try {
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+      return 'Invalid Date';
+    }
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return 'Date formatting error';
+  }
 };
 
-// Loading fallback component
 function EventRegisterLoading() {
   return (
     <div className="container mx-auto px-4 py-8 flex justify-center items-center min-h-screen">
@@ -37,7 +70,6 @@ function EventRegisterLoading() {
   );
 }
 
-// Component that uses useSearchParams
 function EventRegisterContent() {
   const searchParams = useSearchParams();
   const eventId = searchParams.get('id') || '1';
@@ -50,18 +82,13 @@ function EventRegisterContent() {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // If user is not logged in, create a user
       if (!user) {
         login(data.email, data.name);
       }
       
-      // Set registration status to true
       setIsRegistered(true);
-      
-      // In a real app, you would send this data to your backend
       console.log('Registration data:', { ...data, eventId });
     } catch (error) {
       console.error('Registration failed:', error);
@@ -80,21 +107,6 @@ function EventRegisterContent() {
       </div>
     );
   }
-
-  // Format date safely
-  const formatDate = (date: Date): string => {
-    try {
-      return date.toLocaleDateString('en-US', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
-    } catch (error) {
-      console.error('Error formatting date:', error);
-      return 'Invalid Date';
-    }
-  };
   
   return (
     <div className="container mx-auto px-4 py-8">
@@ -120,7 +132,7 @@ function EventRegisterContent() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>Date: {formatDate(EVENT.date)}</span>
+                  <span>Date: {safeFormatDate(EVENT.date)}</span>
                 </div>
                 <div className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -188,7 +200,6 @@ function EventRegisterContent() {
   );
 }
 
-// Main page component with Suspense
 export default function RegisterPage() {
   return (
     <Suspense fallback={<EventRegisterLoading />}>
