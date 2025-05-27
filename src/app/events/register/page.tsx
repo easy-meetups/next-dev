@@ -13,7 +13,7 @@ import { useUser } from '@/context/UserContext';
 const EVENT: Event = {
   id: '1',
   title: 'Web Development Conference 2025',
-  description: 'Join us for a full day of talks on the latest web development trends, tools, and techniques.',
+  description: 'Junte-se a nós para um dia inteiro de palestras sobre as últimas tendências, ferramentas e técnicas de desenvolvimento web.',
   date: new Date('2025-06-15'),
   location: 'Tech Hub, San Francisco',
   capacity: 200,
@@ -42,25 +42,25 @@ function EventRegisterContent() {
   const searchParams = useSearchParams();
   const eventId = searchParams.get('id') ?? '1';
   const { user, isLoading, login } = useUser();
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  
+
   const handleRegister = async (data: EventRegistrationFormData) => {
     setIsSubmitting(true);
-    
+
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       // If user is not logged in, create a user
       if (!user) {
         login(data.email, data.name);
       }
-      
+
       // Set registration status to true
       setIsRegistered(true);
-      
+
       // In a real app, you would send this data to your backend
       console.log('Registration data:', { ...data, eventId });
     } catch (error) {
@@ -69,7 +69,7 @@ function EventRegisterContent() {
       setIsSubmitting(false);
     }
   };
-  
+
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8 flex justify-center items-center min-h-screen">
@@ -80,41 +80,54 @@ function EventRegisterContent() {
       </div>
     );
   }
-  
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <Link href="/" className="text-blue-600 hover:underline flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
+        <Link
+          href="/"
+          className="w-1/6 bg-blue-600 text-white hover:bg-blue-500 flex items-center gap-2 px-4 py-2 rounded transition-colors duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+              clipRule="evenodd"
+            />
           </svg>
-          Back to Events
+          Voltar para Eventos
         </Link>
       </div>
-      
+
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
           <h1 className="text-3xl font-bold mb-4">{EVENT.title}</h1>
           <div className="bg-white rounded-lg shadow-md p-6 mb-6">
             <p className="text-gray-700 mb-4">{EVENT.description}</p>
-            
+
             <div className="mb-4">
-              <h3 className="font-semibold mb-2">Event Details</h3>
+              <h3 className="font-semibold mb-2 text-black">Detalhes do Evento</h3>
               <div className="space-y-2">
-                <div className="flex items-center">
+                <div className="flex items-center text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>Date: {EVENT.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <span>Data: {EVENT.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>Location: {EVENT.location}</span>
+                  <span>Localização: {EVENT.location}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-black">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
@@ -122,14 +135,14 @@ function EventRegisterContent() {
                 </div>
               </div>
             </div>
-            
+
             {!isRegistered ? (
               <>
-                <h2 className="text-2xl font-semibold mb-4">Register for this Event</h2>
-                <RegistrationForm 
-                  eventId={eventId} 
-                  onSubmit={handleRegister} 
-                  isSubmitting={isSubmitting} 
+                <h2 className="text-2xl font-bold mb-4 text-black">Inscreva-se neste evento</h2>
+                <RegistrationForm
+                  eventId={eventId}
+                  onSubmit={handleRegister}
+                  isSubmitting={isSubmitting}
                 />
               </>
             ) : (
@@ -141,9 +154,9 @@ function EventRegisterContent() {
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-green-800">Registration Successful!</h3>
+                    <h3 className="text-sm font-medium text-green-800">Cadastro realizado com sucesso!</h3>
                     <div className="mt-2 text-sm text-green-700">
-                      <p>Thank you for registering for this event. You can now join the event chat to connect with other attendees.</p>
+                      <p>Obrigado por se inscrever neste evento. Agora você pode entrar no chat do evento para se conectar com outros participantes.</p>
                     </div>
                   </div>
                 </div>
@@ -151,25 +164,25 @@ function EventRegisterContent() {
             )}
           </div>
         </div>
-        
+
         <div className="h-[600px]">
           {(user || isRegistered) ? (
-            <ChatInterface 
-              eventId={eventId} 
-              currentUser={user || { id: 'temp-user', name: 'Guest User', email: 'guest@example.com' }} 
+            <ChatInterface
+              eventId={eventId}
+              currentUser={user || { id: 'temp-user', name: 'Guest User', email: 'guest@example.com' }}
             />
           ) : (
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 h-full flex flex-col items-center justify-center text-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
-              <h3 className="text-xl font-medium text-gray-900 mb-2">Event Chat</h3>
-              <p className="text-gray-600 mb-6">Register for this event to join the conversation with other attendees.</p>
+              <h3 className="text-xl font-medium text-gray-900 mb-2">Bate-papo do evento</h3>
+              <p className="text-gray-600 mb-6">Registre-se neste evento para participar da conversa com outros participantes.</p>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
