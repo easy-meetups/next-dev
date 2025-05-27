@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { io, Socket } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
 import { ChatMessage, User } from '@/lib/types';
 import { ChatMessageFormData, chatMessageSchema } from '@/lib/validation';
 import { Button } from '@/components/ui/Button';
@@ -11,8 +11,8 @@ import { Textarea } from '@/components/ui/Textarea';
 import { format } from 'date-fns';
 
 interface ChatInterfaceProps {
-  eventId: string;
-  currentUser: User;
+  readonly eventId: string;
+  readonly currentUser: User;
 }
 
 export function ChatInterface({ eventId, currentUser }: ChatInterfaceProps) {
@@ -48,9 +48,10 @@ export function ChatInterface({ eventId, currentUser }: ChatInterfaceProps) {
     setMessages([welcomeMessage]);
     
     // Cleanup function
+    const socket = socketRef.current;
     return () => {
-      if (socketRef.current) {
-        socketRef.current.disconnect();
+      if (socket) {
+        socket.disconnect();
       }
     };
   }, [eventId]);
@@ -97,32 +98,34 @@ export function ChatInterface({ eventId, currentUser }: ChatInterfaceProps) {
         ref={chatContainerRef}
         className="flex-1 p-4 overflow-y-auto space-y-4"
       >
-        {messages.map((message) => (
-          <div 
-            key={message.id}
-            className={`flex ${message.userId === currentUser.id ? 'justify-end' : 'justify-start'}`}
-          >
+        {messages.map((message) => {
+          let messageClass = '';
+          if (message.userId === currentUser.id) {
+            messageClass = 'bg-blue-600 text-white';
+          } else if (message.userId === 'system') {
+            messageClass = 'bg-gray-200 text-gray-800';
+          } else {
+            messageClass = 'bg-gray-100 text-gray-800';
+          }
+          return (
             <div 
-              className={`
-                max-w-[70%] rounded-lg p-3 
-                ${message.userId === currentUser.id 
-                  ? 'bg-blue-600 text-white' 
-                  : message.userId === 'system' 
-                    ? 'bg-gray-200 text-gray-800' 
-                    : 'bg-gray-100 text-gray-800'
-                }
-              `}
+              key={message.id}
+              className={`flex ${message.userId === currentUser.id ? 'justify-end' : 'justify-start'}`}
             >
-              {message.userId !== currentUser.id && message.userId !== 'system' && (
-                <div className="font-medium mb-1">{message.userName}</div>
-              )}
-              <p>{message.content}</p>
-              <div className={`text-xs mt-1 ${message.userId === currentUser.id ? 'text-blue-100' : 'text-gray-500'}`}>
-                {format(message.timestamp, 'h:mm a')}
+              <div 
+                className={`
+                  max-w-[70%] rounded-lg p-3 
+                  ${messageClass}
+                `}
+              >
+                <div>{message.content}</div>
+                <div className={`text-xs mt-1 ${message.userId === currentUser.id ? 'text-blue-100' : 'text-gray-500'}`}>
+                  {format(message.timestamp, 'h:mm a')}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       
       <div className="p-4 border-t">
