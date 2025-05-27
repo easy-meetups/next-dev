@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
+import Logo from '@/components/ui/Logo';
 
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +72,9 @@ export function Sidebar() {
       
       {/* Overlay for mobile devices */}
       {isOpen && (
-        <div 
+        <button
+          type="button"
+          aria-label="Fechar menu"
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
@@ -89,9 +92,7 @@ export function Sidebar() {
           {/* Menu Header */}
           <div className="p-4 border-b border-blue-800">
             <div className="flex items-center justify-center mb-4">
-              <div className="h-16 w-16 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center text-2xl font-bold">
-                EV
-              </div>
+              <Logo className="h-20 w-20 mr-2" />
             </div>
             <h2 className="text-xl font-bold text-center">Portal de Eventos</h2>
             <p className="text-blue-300 text-sm text-center mt-1">Gerencie seus eventos</p>

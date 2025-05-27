@@ -35,6 +35,7 @@ const ToggleSwitch: React.FC<{
           checked ? 'bg-blue-600' : 'bg-gray-300'
         }`}
       >
+        <span className="sr-only">{label}</span>
         <span
           className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out ${
             checked ? 'transform translate-x-6' : 'transform translate-x-0'
@@ -110,7 +111,10 @@ export default function SettingsPage() {
   });
   
   // Funções para atualizar configurações
-  const updateAccountSetting = (key: keyof typeof accountSettings, value: any) => {
+  type AccountSettingsKey = keyof typeof accountSettings;
+  type AccountSettingsValue = boolean | string;
+
+  const updateAccountSetting = (key: AccountSettingsKey, value: AccountSettingsValue) => {
     setAccountSettings(prev => ({ ...prev, [key]: value }));
   };
   
@@ -118,11 +122,14 @@ export default function SettingsPage() {
     setNotificationSettings(prev => ({ ...prev, [key]: !prev[key] }));
   };
   
-  const updatePrivacySetting = (key: keyof typeof privacySettings, value: any) => {
+  const updatePrivacySetting = (key: keyof typeof privacySettings, value: boolean | string | null) => {
     setPrivacySettings(prev => ({ ...prev, [key]: typeof value === 'boolean' ? !prev[key] : value }));
   };
   
-  const updateAppearanceSetting = (key: keyof typeof appearanceSettings, value: any) => {
+  type AppearanceSettingsKey = keyof typeof appearanceSettings;
+  type AppearanceSettingsValue = boolean | string;
+
+  const updateAppearanceSetting = (key: AppearanceSettingsKey, value: AppearanceSettingsValue | null) => {
     setAppearanceSettings(prev => ({ ...prev, [key]: typeof value === 'boolean' ? !prev[key] : value }));
   };
   
@@ -254,20 +261,22 @@ export default function SettingsPage() {
                 <div className="py-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="full-name" className="block text-sm font-medium text-gray-700 mb-1">
                         Nome Completo
                       </label>
                       <input
+                        id="full-name"
                         type="text"
                         value={user.name}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                         E-mail
                       </label>
                       <input
+                        id="email"
                         type="email"
                         value={user.email}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
@@ -278,20 +287,22 @@ export default function SettingsPage() {
                       </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                         Telefone
                       </label>
                       <input
+                        id="phone"
                         type="tel"
                         placeholder="(00) 00000-0000"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
                         Empresa/Organização
                       </label>
                       <input
+                        id="company"
                         type="text"
                         placeholder="Nome da sua empresa"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
