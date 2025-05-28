@@ -299,6 +299,48 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - **Backend**: Firebase e integração com APIs REST
 - **DevOps**: Deploy automatizado e CI/CD
 
+## 🚀 Contribuidores
+
+Agradecemos a todos os desenvolvedores que contribuíram para tornar o TechEVentos uma realidade:
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/darioreisjr">
+          <img src="https://github.com/darioreisjr.png" width="100px;" alt="Dario Reis Jr"/><br />
+          <sub><b>Dario Reis Jr</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/starch0">
+          <img src="https://github.com/starch0.png" width="100px;" alt="Starch0"/><br />
+          <sub><b>Starch0</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/zeneiltongpdev">
+          <img src="https://github.com/zeneiltongpdev.png" width="100px;" alt="Zeneilton GP Dev"/><br />
+          <sub><b>Zeneilton GP Dev</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/rmullo">
+          <img src="https://github.com/rmullo.png" width="100px;" alt="R Mullo"/><br />
+          <sub><b>R Mullo</b></sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div align="center">
+  <p>
+    <strong>🌟 Quer fazer parte desta lista?</strong><br>
+    Contribua com o projeto e junte-se à nossa comunidade de desenvolvedores!
+  </p>
+</div>
+
 ## 🆘 Suporte e Comunidade
 
 - 📧 **Email**: contato@techeventos.com.br
