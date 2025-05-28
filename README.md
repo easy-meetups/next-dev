@@ -1,7 +1,7 @@
-# TechEventos - Plataforma de Eventos de Tecnologia
+# TechEVentos - Plataforma de Eventos de Tecnologia
 
 <div align="center">
-  <img src="/public/images/logo.png" alt="TechEventos Logo" width="200" height="200" />
+  <img src="/public/images/events/banner.png" alt="TechEventos Logo" width="1000" height="232" />
   
   <p>
     <strong>A maior plataforma de eventos de tecnologia do Brasil</strong>
@@ -19,7 +19,7 @@
 
 ## 📋 Sobre o Projeto
 
-TechEventos é uma plataforma completa e moderna para descoberta, organização e participação em eventos de tecnologia. Desenvolvida com as mais recentes tecnologias web, oferece uma experiência fluida e intuitiva para conectar profissionais, estudantes e entusiastas da área tecnológica.
+TechEVentos é uma plataforma completa e moderna para descoberta, organização e participação em eventos de tecnologia. Desenvolvida com as mais recentes tecnologias web, oferece uma experiência fluida e intuitiva para conectar profissionais, estudantes e entusiastas da área tecnológica.
 
 ### 🎯 Objetivo
 
