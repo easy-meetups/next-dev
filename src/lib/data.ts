@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { Event } from '@/lib/types'
 
 const api = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api',
 })
 
 export async function fetchEvents(): Promise<Event[]> {
