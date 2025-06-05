@@ -198,6 +198,9 @@ npm run test:watch   # Executa testes em modo watch
 npm run test:coverage # Executa testes com cobertura
 ```
 
+Os testes unitários utilizam **Jest** com a **React Testing Library**. Coloque
+arquivos de teste com sufixo `.test.ts` ou `.test.tsx` dentro de `src/`.
+
 ## 🎨 Guia de Estilo e Padrões
 
 ### **Componentes**
