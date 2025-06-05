@@ -41,7 +41,7 @@ function EventRegisterLoading() {
 function EventRegisterContent() {
   const searchParams = useSearchParams();
   const eventId = searchParams.get('id') ?? '1';
-  const { user, isLoading, login } = useUser();
+  const { user, isLoading } = useUser();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -52,11 +52,6 @@ function EventRegisterContent() {
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // If user is not logged in, create a user
-      if (!user) {
-        login(data.email, data.name);
-      }
 
       // Set registration status to true
       setIsRegistered(true);

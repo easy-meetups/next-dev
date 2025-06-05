@@ -1,13 +1,16 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 import { User } from '@/lib/types';
 
 interface UserContextType {
   user: User | null;
   isLoading: boolean;
-  login: (email: string, name: string) => void;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string, name: string) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -15,59 +18,49 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
-    // Check for existing user in localStorage (in a real app, use secure cookies or proper auth)
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (e) {
-        console.error('Failed to parse stored user', e);
-        // Load a default user for demonstration purposes
-        const defaultUser = {
-          id: 'default-user',
-          name: 'Usuário Participante',
-          email: 'usuario@exemplo.com',
-          avatar: 'https://avatars.githubusercontent.com/u/85812823?v=4'
-        };
-        setUser(defaultUser);
-        localStorage.setItem('user', JSON.stringify(defaultUser));
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        setUser({
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || firebaseUser.email || 'User',
+          email: firebaseUser.email || '',
+          avatar: firebaseUser.photoURL || undefined,
+        });
+      } else {
+        setUser(null);
       }
-    } else {
-      // For demonstration, create a default user
-      const defaultUser = {
-        id: 'default-user',
-        name: 'Usuário Participante',
-        email: 'usuario@exemplo.com',
-        avatar: 'https://avatars.githubusercontent.com/u/85812823?v=4'
-      };
-      setUser(defaultUser);
-      localStorage.setItem('user', JSON.stringify(defaultUser));
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
   
-  const login = (email: string, name: string) => {
-    // In a real app, this would be a proper authentication call
-    const newUser: User = {
-      id: `user-${Date.now()}`,
-      email,
-      name,
-      avatar: "https://avatars.githubusercontent.com/u/85812823?v=4",
-    };
-    
-    setUser(newUser);
-    localStorage.setItem('user', JSON.stringify(newUser));
+  const login = async (email: string, password: string) => {
+    await signInWithEmailAndPassword(auth, email, password);
   };
-  
-  const logout = () => {
+
+  const register = async (email: string, password: string, name: string) => {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    if (auth.currentUser) {
+      await updateProfile(auth.currentUser, { displayName: name });
+    }
+    setUser({
+      id: cred.user.uid,
+      name,
+      email: cred.user.email || email,
+      avatar: cred.user.photoURL || undefined,
+    });
+  };
+
+  const logout = async () => {
+    await signOut(auth);
     setUser(null);
-    localStorage.removeItem('user');
   };
   
   return (
-    <UserContext.Provider value={{ user, isLoading, login, logout }}>
+    <UserContext.Provider value={{ user, isLoading, login, register, logout }}>
       {children}
     </UserContext.Provider>
   );

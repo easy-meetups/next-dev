@@ -9,7 +9,7 @@ import Logo from '@/components/ui/Logo';
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const { user } = useUser();
+  const { user, logout } = useUser();
   
   // Close menu when route changes on mobile devices
   useEffect(() => {
@@ -200,8 +200,8 @@ export function Sidebar() {
                   <p className="text-sm font-medium">{user.name}</p>
                   <p className="text-xs text-blue-300 truncate">{user.email}</p>
                 </div>
-                <button 
-                  onClick={() => console.log('Logout clicked')} 
+                <button
+                  onClick={logout}
                   className="ml-2 text-gray-400 hover:text-white"
                   aria-label="Sair"
                 >
