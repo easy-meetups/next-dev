@@ -16,17 +16,20 @@ export default function EventsList() {
   const eventsContainerRef = useRef<HTMLDivElement>(null)
   const [animate, setAnimate] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false) // 👈 Novo estado
+  const [error, setError] = useState<string | null>(null)
 
   const eventsPerPage = 9
 
   useEffect(() => {
     const loadEvents = async () => {
       setLoading(true)
+      setError(null)
       try {
         const data = await fetchEvents()
         setEvents(data)
       } catch (error) {
         console.error("Failed to fetch events:", error)
+        setError("Erro ao carregar eventos.")
       } finally {
         setLoading(false)
       }
@@ -86,7 +89,15 @@ export default function EventsList() {
   }, [])
 
   if (loading) {
-    return null
+    return (
+      <div className="flex justify-center py-8">
+        <span>Carregando eventos...</span>
+      </div>
+    )
+  }
+
+  if (error) {
+    return <p className="text-red-600">{error}</p>
   }
 
   return (
