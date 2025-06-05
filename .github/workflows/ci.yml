@@ -19,6 +19,14 @@ jobs:
         with:
           node-version: 18
 
+      - name: ⬇️ Cache de dependências
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: 📦 Instalar dependências
         run: npm ci
 
@@ -31,6 +39,7 @@ jobs:
       - name: 🛠️ Build do projeto
         run: npm run build
 
-      # - name: 🧪 Testes (se houver)
-      #   run: npm run test
+      - name: 🧪 Testes (se houver)
+        if: ${{ hashFiles('**/*.test.{js,jsx,ts,tsx}') != '' }}
+        run: npm run test --if-present
 

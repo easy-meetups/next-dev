@@ -299,6 +299,25 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - **Backend**: Firebase e integração com APIs REST
 - **DevOps**: Deploy automatizado e CI/CD
 
+## ⚙️ CI/CD
+
+O repositório possui dois fluxos de trabalho no GitHub Actions:
+
+- **CI** (`.github/workflows/ci.yml`): executado em todo *push* ou *pull request* para `main`. Utiliza cache de dependências, realiza checagem de tipos, lint e build. Se houver arquivos de teste (`*.test.ts` ou `*.test.tsx`), executa `npm run test`.
+- **CD** (`.github/workflows/cd.yml`): disparado quando há *push* na branch `main` ou tags no formato `v*`. Constrói o projeto e faz o deploy no Vercel.
+
+Para que o deploy funcione é necessário configurar os segredos `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` nas configurações do repositório.
+
+### Executando localmente
+
+```bash
+npm ci
+npm run lint
+npm run type-check
+npm run build
+npm test # se houver testes
+```
+
 ## 🚀 Contribuidores
 
 Agradecemos a todos os desenvolvedores que contribuíram para tornar o TechEVentos uma realidade:
