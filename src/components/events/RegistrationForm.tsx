@@ -9,12 +9,11 @@ import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 
 interface RegistrationFormProps {
-  eventId: string;
   onSubmit: (data: EventRegistrationFormData) => void;
   isSubmitting: boolean;
 }
 
-export function RegistrationForm({ eventId, onSubmit, isSubmitting }: RegistrationFormProps) {
+export function RegistrationForm({ onSubmit, isSubmitting }: RegistrationFormProps) {
   const {
     register,
     handleSubmit,
