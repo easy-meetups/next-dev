@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -38,6 +40,8 @@
     "jest-environment-jsdom": "^30.0.0-beta.3",
     "path-exists": "^5.0.0",
     "tailwindcss": "^4",
+    "ts-jest": "^29.3.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
