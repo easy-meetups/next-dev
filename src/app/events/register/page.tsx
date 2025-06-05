@@ -140,7 +140,6 @@ function EventRegisterContent() {
               <>
                 <h2 className="text-2xl font-bold mb-4 text-black">Inscreva-se neste evento</h2>
                 <RegistrationForm
-                  eventId={eventId}
                   onSubmit={handleRegister}
                   isSubmitting={isSubmitting}
                 />
