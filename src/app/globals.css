@@ -3,6 +3,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /*Community Section Styles*/
+  --section-bg: #203280;
+  --card-bg: #262f59;
+  --pagination-bttn-bg: #203280;
 }
 
 @theme inline {
@@ -16,6 +21,11 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    /*Community Section Styles*/
+    --section-bg: #203280;
+    --card-bg: #262f59;
+    --pagination-bttn-bg: #203280;
   }
 }
 
