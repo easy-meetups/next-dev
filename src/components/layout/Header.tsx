@@ -14,7 +14,8 @@ export function Header() {
   const shouldShowSearch =
     pathname === "/events" ||
     pathname === "/my-events" ||
-    pathname.startsWith("/events/");
+    pathname.startsWith("/events/") ||
+    pathname === "/communities";
 
   // Lidar com a submissão do formulário de pesquisa
   const handleSearch = (e: React.FormEvent) => {
