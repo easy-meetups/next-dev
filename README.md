@@ -376,6 +376,12 @@ Agradecemos a todos os desenvolvedores que contribuíram para tornar o TechEVent
           <sub><b>R Mullo</b></sub>
         </a>
       </td>
+      <td align="center">
+        <a href="https://github.com/viniciusbavosa">
+          <img src="https://github.com/viniciusbavosa.png" width="100px;" alt="Vinicius Bavosa"/><br />
+          <sub><b>Vinicius Bavosa</b></sub>
+        </a>
+      </td>
     </tr>
   </table>
 </div>
