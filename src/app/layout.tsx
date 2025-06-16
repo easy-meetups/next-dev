@@ -26,11 +26,9 @@ export default function RootLayout({
         <UserProvider>
           <div className="flex h-screen overflow-hidden">
             <Sidebar />
-            <div className="flex-1 flex flex-col overflow-y-auto">
+            <div className="flex-1 flex flex-col overflow-y-auto dark:bg-[#0F1324]">
               <Header />
-              <main className="flex-grow pt-4">
-                <div className="container mx-auto px-4 py-4">{children}</div>
-              </main>
+              <main>{children}</main>
               <Footer />
             </div>
           </div>
