@@ -54,7 +54,7 @@ export function Footer() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h3 className="text-2xl font-bold mb-4">
-                Receba Atualizações de Novos Eventos
+                Receba Atualizações de Novos Eventoss
               </h3>
               <p className="text-blue-100 mb-6">
                 Inscreva-se em nossa newsletter e fique por dentro dos melhores
