@@ -1,10 +1,10 @@
-import sgMail from '@sendgrid/mail';
+import sgMail from "@sendgrid/mail";
 
 if (!process.env.SENDGRID_API_KEY) {
-  throw new Error('SENDGRID_API_KEY não configurada em .env.local');
+  throw new Error("SENDGRID_API_KEY não configurada em .env.local");
 }
 if (!process.env.SENDGRID_SENDER_EMAIL) {
-  throw new Error('SENDGRID_SENDER_EMAIL não configurada em .env.local');
+  throw new Error("SENDGRID_SENDER_EMAIL não configurada em .env.local");
 }
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -13,12 +13,12 @@ export async function sendWelcomeEmail(to: string) {
   const msg = {
     to,
     from: process.env.SENDGRID_SENDER_EMAIL as string,
-    subject: 'Bem‐vindo(a) à nossa Newsletter!',
+    subject: "Bem‐vindo(a) à nossa Newsletter!",
     text: `Olá!
 
-Obrigado por se inscrever na nossa newsletter de eventos. 
+Obrigado por se inscrever na nossa newsletter de eventos.
 
-Em breve, enviaremos as novidades diretamente para seu e‐mail.
+Em breve, enviaremos as novidades diretamente para seu e-mail.
 
 Atenciosamente,
 Equipe MeuApp`,

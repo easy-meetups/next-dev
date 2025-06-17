@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+'use client';
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+
 import { Input } from "./Input";
 import { Button } from "./Button";
 
@@ -27,9 +29,8 @@ export default function NewsletterForm() {
 
   const onSubmitNewsletter = async (data: NewsletterFormData) => {
     setErrorMessage("");
-
     try {
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -42,7 +43,7 @@ export default function NewsletterForm() {
         const res = await response.json();
         setErrorMessage(res.message || "Erro ao se inscrever.");
       }
-    } catch (error) {
+    } catch {
       setErrorMessage("Erro de conexão. Tente novamente.");
     }
   };
@@ -55,8 +56,7 @@ export default function NewsletterForm() {
             Receba Atualizações de Novos Eventos
           </h3>
           <p className="text-blue-100 mb-6">
-            Inscreva-se em nossa newsletter e fique por dentro dos melhores
-            eventos e novidades.
+            Inscreva-se em nossa newsletter e fique por dentro dos melhores eventos e novidades.
           </p>
 
           {subscribed ? (
@@ -68,21 +68,12 @@ export default function NewsletterForm() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              Obrigado por se inscrever! Em breve você receberá nossas
-              novidades.
+              Obrigado por se inscrever! Em breve você receberá nossas novidades.
             </div>
           ) : (
-            <form
-              onSubmit={handleSubmit(onSubmitNewsletter)}
-              className="flex flex-col sm:flex-row gap-2 max-w-lg mx-auto"
-            >
+            <form onSubmit={handleSubmit(onSubmitNewsletter)} className="flex flex-col sm:flex-row gap-2 max-w-lg mx-auto">
               <div className="flex-grow">
                 <Input
                   type="email"
@@ -103,9 +94,7 @@ export default function NewsletterForm() {
             </form>
           )}
 
-          {errorMessage && (
-            <p className="text-red-200 mt-4">{errorMessage}</p>
-          )}
+          {errorMessage && <p className="text-red-200 mt-4">{errorMessage}</p>}
         </div>
       </div>
     </div>
