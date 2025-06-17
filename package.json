@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
-    "@sendgrid/mail": "^8.1.5",
     "axios": "^1.5.0",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.511.0",
