@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { sendWelcomeEmail } from "@/utils/sendEmail"; // ajuste conforme seu caminho
+import { sendWelcomeEmail } from "@/utils/sendEmail";
 
 export async function POST(req: Request) {
   try {

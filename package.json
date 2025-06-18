@@ -14,13 +14,10 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
-    "@sendgrid/client": "^8.1.5",
-    "@sendgrid/helpers": "^8.0.0",
     "@sendgrid/mail": "^8.1.5",
     "axios": "^1.10.0",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.511.0",
-    "lz-string": "^1.5.0",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -30,7 +30,7 @@ export default function NewsletterForm() {
   const onSubmitNewsletter = async (data: NewsletterFormData) => {
     setErrorMessage("");
     try {
-      const response = await fetch("/api/newsletter", {
+      const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
