@@ -3,7 +3,7 @@ import CommunitiesGrid from "@/components/communities/CommunitiesGrid";
 import Pagination from "@/components/communities/Pagination";
 import { CommunityData } from "@/components/communities/types";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 /* 
   Esse componente implementa toda a 
